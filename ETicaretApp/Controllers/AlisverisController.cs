@@ -50,6 +50,10 @@ namespace ETicaretApp.Controllers
                 {
                     return View(result);
                 }
+                else
+                {
+                    return View(new List<Alisveris>());
+                }
             }
             return View(alisverisServis.GetEntities(null));
         }

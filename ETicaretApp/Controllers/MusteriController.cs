@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ETicaretApp.DbAccess.Abstract;
 using ETicaretApp.DbAccess.Concrete;
 using ETicaretApp.Models;
+using System.Net;
+using System.Net.Mail;
 
 namespace ETicaretApp.Controllers
 {
@@ -155,5 +157,33 @@ namespace ETicaretApp.Controllers
             }
         }
         
+        public class Mail
+        {
+            public void MailSender(string body, string to)
+            {
+                var fromAddress = new MailAddress("stoktakip4@gmail.com");
+                var toAddress = new MailAddress(to);
+                string Unvan = "StokTakip";
+                using (var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, "S123T456")
+
+                })
+                {
+                    using (var message = new MailMessage(fromAddress, toAddress) { Subject = Unvan, Body = body })
+                    {
+                        smtp.Send(message);
+                    }
+                }
+            }
+
+        }
+
+
     }
 }

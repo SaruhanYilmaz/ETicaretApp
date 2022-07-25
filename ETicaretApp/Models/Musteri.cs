@@ -22,4 +22,5 @@ namespace ETicaretApp.Models
 
         public virtual ICollection<Sepet> Sepeti { get; set; }
     }
+    
 }
